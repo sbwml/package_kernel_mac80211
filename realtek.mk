@@ -129,7 +129,9 @@ define KernelPackage/rtl8192de
   $(call KernelPackage/mac80211/Default)
   TITLE:=Realtek RTL8192DE/RTL8188DE support
   DEPENDS+= +kmod-rtlwifi-pci +rtl8192de-firmware
-  FILES:= $(PKG_BUILD_DIR)/drivers/net/wireless/realtek/rtlwifi/rtl8192de/rtl8192de.ko
+  FILES:= \
+	$(PKG_BUILD_DIR)/drivers/net/wireless/realtek/rtlwifi/rtl8192de/rtl8192de.ko \
+	$(PKG_BUILD_DIR)/drivers/net/wireless/realtek/rtlwifi/rtl8192d/rtl8192d-common.ko
   AUTOLOAD:=$(call AutoProbe,rtl8192de)
 endef
 
@@ -264,7 +266,9 @@ define KernelPackage/rtw88-8723d
   $(call KernelPackage/mac80211/Default)
   TITLE:=Realtek RTL8723D family support
   DEPENDS+= +kmod-rtw88 +rtl8723de-firmware
-  FILES:=$(PKG_BUILD_DIR)/drivers/net/wireless/realtek/rtw88/rtw88_8723d.ko
+  FILES:= \
+	$(PKG_BUILD_DIR)/drivers/net/wireless/realtek/rtw88/rtw88_8723d.ko \
+	$(PKG_BUILD_DIR)/drivers/net/wireless/realtek/rtw88/rtw88_8723x.ko
   AUTOLOAD:=$(call AutoProbe,rtw88_8723d)
   HIDDEN:=1
 endef
@@ -437,7 +441,8 @@ define KernelPackage/rtw89-8852be
   DEPENDS+= +kmod-rtw89-pci +rtl8852be-firmware
   FILES:= \
 	$(PKG_BUILD_DIR)/drivers/net/wireless/realtek/rtw89/rtw89_8852b.ko \
-	$(PKG_BUILD_DIR)/drivers/net/wireless/realtek/rtw89/rtw89_8852be.ko
+	$(PKG_BUILD_DIR)/drivers/net/wireless/realtek/rtw89/rtw89_8852be.ko \
+	$(PKG_BUILD_DIR)/drivers/net/wireless/realtek/rtw89/rtw89_8852b_common.ko
   AUTOLOAD:=$(call AutoProbe,rtw89_8852be)
 endef
 
