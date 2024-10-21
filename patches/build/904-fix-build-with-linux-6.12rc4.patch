@@ -1,0 +1,34 @@
+--- a/net/wireless/nl80211.c
++++ b/net/wireless/nl80211.c
+@@ -17956,10 +17956,15 @@ void nl80211_common_reg_change_event(enu
+ 
+ 	genlmsg_end(msg, hdr);
+ 
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(6, 12, 0)
++	genlmsg_multicast_allns(&nl80211_fam, msg, 0,
++				NL80211_MCGRP_REGULATORY);
++#else
+ 	rcu_read_lock();
+ 	genlmsg_multicast_allns(&nl80211_fam, msg, 0,
+ 				NL80211_MCGRP_REGULATORY, GFP_ATOMIC);
+ 	rcu_read_unlock();
++#endif
+ 
+ 	return;
+ 
+@@ -18692,10 +18697,15 @@ void nl80211_send_beacon_hint_event(stru
+ 
+ 	genlmsg_end(msg, hdr);
+ 
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(6, 12, 0)
++	genlmsg_multicast_allns(&nl80211_fam, msg, 0,
++				NL80211_MCGRP_REGULATORY);
++#else
+ 	rcu_read_lock();
+ 	genlmsg_multicast_allns(&nl80211_fam, msg, 0,
+ 				NL80211_MCGRP_REGULATORY, GFP_ATOMIC);
+ 	rcu_read_unlock();
++#endif
+ 
+ 	return;
+ 
