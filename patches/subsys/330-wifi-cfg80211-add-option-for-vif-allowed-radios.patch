@@ -99,7 +99,7 @@ Signed-off-by: Felix Fietkau <nbd@nbd.name>
  		goto nla_put_failure;
  
  	if (rdev->ops->get_channel && !wdev->valid_links) {
-@@ -4312,6 +4314,29 @@ static int nl80211_valid_4addr(struct cf
+@@ -4317,6 +4319,29 @@ static int nl80211_valid_4addr(struct cf
  	return -EOPNOTSUPP;
  }
  
@@ -129,7 +129,7 @@ Signed-off-by: Felix Fietkau <nbd@nbd.name>
  static int nl80211_set_interface(struct sk_buff *skb, struct genl_info *info)
  {
  	struct cfg80211_registered_device *rdev = info->user_ptr[0];
-@@ -4319,6 +4344,8 @@ static int nl80211_set_interface(struct
+@@ -4324,6 +4349,8 @@ static int nl80211_set_interface(struct
  	int err;
  	enum nl80211_iftype otype, ntype;
  	struct net_device *dev = info->user_ptr[1];
@@ -138,7 +138,7 @@ Signed-off-by: Felix Fietkau <nbd@nbd.name>
  	bool change = false;
  
  	memset(&params, 0, sizeof(params));
-@@ -4332,8 +4359,6 @@ static int nl80211_set_interface(struct
+@@ -4337,8 +4364,6 @@ static int nl80211_set_interface(struct
  	}
  
  	if (info->attrs[NL80211_ATTR_MESH_ID]) {
@@ -147,7 +147,7 @@ Signed-off-by: Felix Fietkau <nbd@nbd.name>
  		if (ntype != NL80211_IFTYPE_MESH_POINT)
  			return -EINVAL;
  		if (otype != NL80211_IFTYPE_MESH_POINT)
-@@ -4364,6 +4389,12 @@ static int nl80211_set_interface(struct
+@@ -4369,6 +4394,12 @@ static int nl80211_set_interface(struct
  	if (err > 0)
  		change = true;
  
@@ -160,7 +160,7 @@ Signed-off-by: Felix Fietkau <nbd@nbd.name>
  	if (change)
  		err = cfg80211_change_iface(rdev, dev, ntype, &params);
  	else
-@@ -4372,11 +4403,11 @@ static int nl80211_set_interface(struct
+@@ -4377,11 +4408,11 @@ static int nl80211_set_interface(struct
  	if (!err && params.use_4addr != -1)
  		dev->ieee80211_ptr->use_4addr = params.use_4addr;
  
@@ -175,7 +175,7 @@ Signed-off-by: Felix Fietkau <nbd@nbd.name>
  
  	return err;
  }
-@@ -4387,6 +4418,7 @@ static int _nl80211_new_interface(struct
+@@ -4392,6 +4423,7 @@ static int _nl80211_new_interface(struct
  	struct vif_params params;
  	struct wireless_dev *wdev;
  	struct sk_buff *msg;
@@ -183,7 +183,7 @@ Signed-off-by: Felix Fietkau <nbd@nbd.name>
  	int err;
  	enum nl80211_iftype type = NL80211_IFTYPE_UNSPECIFIED;
  
-@@ -4424,6 +4456,10 @@ static int _nl80211_new_interface(struct
+@@ -4429,6 +4461,10 @@ static int _nl80211_new_interface(struct
  	if (err < 0)
  		return err;
  
@@ -194,7 +194,7 @@ Signed-off-by: Felix Fietkau <nbd@nbd.name>
  	msg = nlmsg_new(NLMSG_DEFAULT_SIZE, GFP_KERNEL);
  	if (!msg)
  		return -ENOMEM;
-@@ -4465,6 +4501,9 @@ static int _nl80211_new_interface(struct
+@@ -4470,6 +4506,9 @@ static int _nl80211_new_interface(struct
  		break;
  	}
  
@@ -204,7 +204,7 @@ Signed-off-by: Felix Fietkau <nbd@nbd.name>
  	if (nl80211_send_iface(msg, info->snd_portid, info->snd_seq, 0,
  			       rdev, wdev, NL80211_CMD_NEW_INTERFACE) < 0) {
  		nlmsg_free(msg);
-@@ -9180,6 +9219,9 @@ static bool cfg80211_off_channel_oper_al
+@@ -9185,6 +9224,9 @@ static bool cfg80211_off_channel_oper_al
  
  	lockdep_assert_wiphy(wdev->wiphy);
  
@@ -214,7 +214,7 @@ Signed-off-by: Felix Fietkau <nbd@nbd.name>
  	if (!cfg80211_beaconing_iface_active(wdev))
  		return true;
  
-@@ -9392,7 +9434,8 @@ static int nl80211_trigger_scan(struct s
+@@ -9397,7 +9439,8 @@ static int nl80211_trigger_scan(struct s
  			}
  
  			/* ignore disabled channels */
@@ -224,7 +224,7 @@ Signed-off-by: Felix Fietkau <nbd@nbd.name>
  				continue;
  
  			request->channels[i] = chan;
-@@ -9412,7 +9455,8 @@ static int nl80211_trigger_scan(struct s
+@@ -9417,7 +9460,8 @@ static int nl80211_trigger_scan(struct s
  
  				chan = &wiphy->bands[band]->channels[j];
  
@@ -236,7 +236,7 @@ Signed-off-by: Felix Fietkau <nbd@nbd.name>
  				request->channels[i] = chan;
 --- a/net/wireless/scan.c
 +++ b/net/wireless/scan.c
-@@ -956,7 +956,8 @@ static int cfg80211_scan_6ghz(struct cfg
+@@ -953,7 +953,8 @@ static int cfg80211_scan_6ghz(struct cfg
  		struct ieee80211_channel *chan =
  			ieee80211_get_channel(&rdev->wiphy, ap->center_freq);
  
@@ -246,7 +246,7 @@ Signed-off-by: Felix Fietkau <nbd@nbd.name>
  			continue;
  
  		for (i = 0; i < rdev_req->n_channels; i++) {
-@@ -3519,9 +3520,12 @@ int cfg80211_wext_siwscan(struct net_dev
+@@ -3516,9 +3517,12 @@ int cfg80211_wext_siwscan(struct net_dev
  			continue;
  
  		for (j = 0; j < wiphy->bands[band]->n_channels; j++) {
@@ -263,7 +263,7 @@ Signed-off-by: Felix Fietkau <nbd@nbd.name>
  			/* If we have a wireless request structure and the
 --- a/net/wireless/util.c
 +++ b/net/wireless/util.c
-@@ -2923,3 +2923,32 @@ bool cfg80211_radio_chandef_valid(const
+@@ -2922,3 +2922,32 @@ bool cfg80211_radio_chandef_valid(const
  	return true;
  }
  EXPORT_SYMBOL(cfg80211_radio_chandef_valid);
@@ -298,7 +298,7 @@ Signed-off-by: Felix Fietkau <nbd@nbd.name>
 +EXPORT_SYMBOL(cfg80211_wdev_channel_allowed);
 --- a/net/wireless/core.c
 +++ b/net/wireless/core.c
-@@ -1424,6 +1424,8 @@ void cfg80211_init_wdev(struct wireless_
+@@ -1431,6 +1431,8 @@ void cfg80211_init_wdev(struct wireless_
  	/* allow mac80211 to determine the timeout */
  	wdev->ps_timeout = -1;
  

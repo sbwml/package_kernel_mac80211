@@ -379,7 +379,7 @@ Link: https://patch.msgid.link/9279a9cd-6f86-4dc3-a095-7c36cb9b9d06@gmail.com
  #define RF_MALSEL	0xbe
 --- a/drivers/net/wireless/realtek/rtw88/rtw8821c.h
 +++ b/drivers/net/wireless/realtek/rtw88/rtw8821c.h
-@@ -214,19 +214,10 @@ extern const struct rtw_chip_info rtw882
+@@ -215,19 +215,10 @@ extern const struct rtw_chip_info rtw882
  #define BIT_FEN_EN	BIT(26)
  #define REG_INIRTS_RATE_SEL 0x0480
  #define REG_HTSTFWT	0x800
@@ -399,7 +399,7 @@ Link: https://patch.msgid.link/9279a9cd-6f86-4dc3-a095-7c36cb9b9d06@gmail.com
  #define REG_ADC40	0x8c8
  #define REG_CHFIR	0x8f0
  #define REG_CDDTXP	0x93c
-@@ -234,14 +225,11 @@ extern const struct rtw_chip_info rtw882
+@@ -235,14 +226,11 @@ extern const struct rtw_chip_info rtw882
  #define REG_ACBB0	0x948
  #define REG_ACBBRXFIR	0x94c
  #define REG_ACGG2TBL	0x958
@@ -414,7 +414,7 @@ Link: https://patch.msgid.link/9279a9cd-6f86-4dc3-a095-7c36cb9b9d06@gmail.com
  #define REG_RXDESC	0xa2c
  #define REG_ENTXCCK	0xa80
  #define BTG_LNA		0xfc84
-@@ -252,12 +240,8 @@ extern const struct rtw_chip_info rtw882
+@@ -253,12 +241,8 @@ extern const struct rtw_chip_info rtw882
  #define REG_PWRTH2	0xaa8
  #define REG_CSRATIO	0xaaa
  #define REG_TXFILTER	0xaac
@@ -427,7 +427,7 @@ Link: https://patch.msgid.link/9279a9cd-6f86-4dc3-a095-7c36cb9b9d06@gmail.com
  #define REG_TRSW	0xca0
  #define REG_RFESEL0	0xcb0
  #define REG_RFESEL8	0xcb4
-@@ -269,14 +253,6 @@ extern const struct rtw_chip_info rtw882
+@@ -270,14 +254,6 @@ extern const struct rtw_chip_info rtw882
  #define B_WLA_SWITCH	BIT(23)
  #define REG_RFEINV	0xcbc
  #define REG_AGCTR_B	0xe08
@@ -444,7 +444,7 @@ Link: https://patch.msgid.link/9279a9cd-6f86-4dc3-a095-7c36cb9b9d06@gmail.com
  #define REG_ANTWT	0x1904
 --- a/drivers/net/wireless/realtek/rtw88/rtw8822b.h
 +++ b/drivers/net/wireless/realtek/rtw88/rtw8822b.h
-@@ -151,21 +151,12 @@ _rtw_write32s_mask(struct rtw_dev *rtwde
+@@ -152,21 +152,12 @@ _rtw_write32s_mask(struct rtw_dev *rtwde
  #define RTW8822B_EDCCA_MAX	0x7f
  #define RTW8822B_EDCCA_SRC_DEF	1
  #define REG_HTSTFWT	0x800
@@ -466,7 +466,7 @@ Link: https://patch.msgid.link/9279a9cd-6f86-4dc3-a095-7c36cb9b9d06@gmail.com
  #define REG_ADC40	0x8c8
  #define REG_EDCCA_DECISION	0x8dc
  #define BIT_EDCCA_OPTION	BIT(5)
-@@ -176,7 +167,6 @@ _rtw_write32s_mask(struct rtw_dev *rtwde
+@@ -177,7 +168,6 @@ _rtw_write32s_mask(struct rtw_dev *rtwde
  #define REG_ACBB0	0x948
  #define REG_ACBBRXFIR	0x94c
  #define REG_ACGG2TBL	0x958
@@ -474,7 +474,7 @@ Link: https://patch.msgid.link/9279a9cd-6f86-4dc3-a095-7c36cb9b9d06@gmail.com
  #define REG_ADCINI	0xa04
  #define REG_TXSF2	0xa24
  #define REG_TXSF6	0xa28
-@@ -184,14 +174,12 @@ _rtw_write32s_mask(struct rtw_dev *rtwde
+@@ -185,14 +175,12 @@ _rtw_write32s_mask(struct rtw_dev *rtwde
  #define REG_ENTXCCK	0xa80
  #define REG_AGCTR_A	0xc08
  #define REG_TXDFIR	0xc20
