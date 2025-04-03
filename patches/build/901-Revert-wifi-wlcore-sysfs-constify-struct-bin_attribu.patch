@@ -1,0 +1,30 @@
+From 662d1df2f28625ac593a7a0640ce8af3ad633ea8 Mon Sep 17 00:00:00 2001
+From: sbwml <admin@cooluc.com>
+Date: Fri, 4 Apr 2025 00:11:33 +0800
+Subject: [PATCH] Revert "wifi: wlcore: sysfs: constify 'struct bin_attribute'"
+
+This reverts commit 8ab3bf4764136e8ad8d1064c304be50297bcf9ad.
+---
+ drivers/net/wireless/ti/wlcore/sysfs.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+--- a/drivers/net/wireless/ti/wlcore/sysfs.c
++++ b/drivers/net/wireless/ti/wlcore/sysfs.c
+@@ -88,7 +88,7 @@ static ssize_t hw_pg_ver_show(struct dev
+ static DEVICE_ATTR_RO(hw_pg_ver);
+ 
+ static ssize_t wl1271_sysfs_read_fwlog(struct file *filp, struct kobject *kobj,
+-				       const struct bin_attribute *bin_attr,
++				       struct bin_attribute *bin_attr,
+ 				       char *buffer, loff_t pos, size_t count)
+ {
+ 	struct device *dev = kobj_to_dev(kobj);
+@@ -121,7 +121,7 @@ static ssize_t wl1271_sysfs_read_fwlog(s
+ 
+ static const struct bin_attribute fwlog_attr = {
+ 	.attr = { .name = "fwlog", .mode = 0400 },
+-	.read_new = wl1271_sysfs_read_fwlog,
++	.read = wl1271_sysfs_read_fwlog,
+ };
+ 
+ int wlcore_sysfs_init(struct wl1271 *wl)
