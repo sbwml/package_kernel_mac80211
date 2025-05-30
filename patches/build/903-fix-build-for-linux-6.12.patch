@@ -1,0 +1,88 @@
+--- a/drivers/net/wireless/ralink/rt2x00/rt2800mmio.c
++++ b/drivers/net/wireless/ralink/rt2x00/rt2800mmio.c
+@@ -842,7 +842,7 @@ int rt2800mmio_probe_hw(struct rt2x00_de
+ 	/*
+ 	 * Set txstatus timer function.
+ 	 */
+-	hrtimer_update_function(&rt2x00dev->txstatus_timer, rt2800mmio_tx_sta_fifo_timeout);
++	rt2x00dev->txstatus_timer.function = rt2800mmio_tx_sta_fifo_timeout;
+ 
+ 	/*
+ 	 * Overwrite TX done handler
+--- a/drivers/net/wireless/ralink/rt2x00/rt2800usb.c
++++ b/drivers/net/wireless/ralink/rt2x00/rt2800usb.c
+@@ -618,7 +618,7 @@ static int rt2800usb_probe_hw(struct rt2
+ 	/*
+ 	 * Set txstatus timer function.
+ 	 */
+-	hrtimer_update_function(&rt2x00dev->txstatus_timer, rt2800usb_tx_sta_fifo_timeout);
++	rt2x00dev->txstatus_timer.function = rt2800usb_tx_sta_fifo_timeout;
+ 
+ 	/*
+ 	 * Overwrite TX done handler
+--- a/drivers/net/wireless/ralink/rt2x00/rt2x00dev.c
++++ b/drivers/net/wireless/ralink/rt2x00/rt2x00dev.c
+@@ -1391,8 +1391,8 @@ int rt2x00lib_probe_dev(struct rt2x00_de
+ 	mutex_init(&rt2x00dev->conf_mutex);
+ 	INIT_LIST_HEAD(&rt2x00dev->bar_list);
+ 	spin_lock_init(&rt2x00dev->bar_list_lock);
+-	hrtimer_setup(&rt2x00dev->txstatus_timer, hrtimer_dummy_timeout, CLOCK_MONOTONIC,
+-		      HRTIMER_MODE_REL);
++	hrtimer_init(&rt2x00dev->txstatus_timer, CLOCK_MONOTONIC,
++		     HRTIMER_MODE_REL);
+ 
+ 	set_bit(DEVICE_STATE_PRESENT, &rt2x00dev->flags);
+ 
+--- a/drivers/net/wireless/virtual/mac80211_hwsim.c
++++ b/drivers/net/wireless/virtual/mac80211_hwsim.c
+@@ -5551,9 +5551,10 @@ static int mac80211_hwsim_new_radio(stru
+ 	wiphy_ext_feature_set(hw->wiphy, NL80211_EXT_FEATURE_CQM_RSSI_LIST);
+ 
+ 	for (i = 0; i < ARRAY_SIZE(data->link_data); i++) {
+-		hrtimer_setup(&data->link_data[i].beacon_timer, mac80211_hwsim_beacon,
+-			      CLOCK_MONOTONIC, HRTIMER_MODE_ABS_SOFT);
+-		data->link_data[i].link_id = i;
++		hrtimer_init(&data->link_data[i].beacon_timer, CLOCK_MONOTONIC,
++			     HRTIMER_MODE_ABS_SOFT);
++		data->link_data[i].beacon_timer.function =
++			mac80211_hwsim_beacon;
+ 	}
+ 
+ 	err = ieee80211_register_hw(hw);
+--- a/net/mac80211/debugfs_sta.c
++++ b/net/mac80211/debugfs_sta.c
+@@ -457,12 +457,11 @@ static ssize_t link_sta_addr_read(struct
+ 				  size_t count, loff_t *ppos)
+ {
+ 	struct link_sta_info *link_sta = file->private_data;
+-	u8 mac[MAC_ADDR_STR_LEN + 2];
++	u8 mac[3 * ETH_ALEN + 1];
+ 
+ 	snprintf(mac, sizeof(mac), "%pM\n", link_sta->pub->addr);
+ 
+-	return simple_read_from_buffer(userbuf, count, ppos, mac,
+-				       MAC_ADDR_STR_LEN + 1);
++	return simple_read_from_buffer(userbuf, count, ppos, mac, 3 * ETH_ALEN);
+ }
+ 
+ LINK_STA_OPS(addr);
+@@ -1241,7 +1240,7 @@ void ieee80211_sta_debugfs_add(struct st
+ 	struct ieee80211_local *local = sta->local;
+ 	struct ieee80211_sub_if_data *sdata = sta->sdata;
+ 	struct dentry *stations_dir = sta->sdata->debugfs.subdir_stations;
+-	u8 mac[MAC_ADDR_STR_LEN + 1];
++	u8 mac[3*ETH_ALEN];
+ 
+ 	if (!stations_dir)
+ 		return;
+--- a/net/wireless/scan.c
++++ b/net/wireless/scan.c
+@@ -1365,7 +1365,7 @@ void cfg80211_bss_age(struct cfg80211_re
+                       unsigned long age_secs)
+ {
+ 	struct cfg80211_internal_bss *bss;
+-	unsigned long age_jiffies = secs_to_jiffies(age_secs);
++	unsigned long age_jiffies = msecs_to_jiffies(age_secs * MSEC_PER_SEC);
+ 
+ 	spin_lock_bh(&rdev->bss_lock);
+ 	list_for_each_entry(bss, &rdev->bss_list, list)

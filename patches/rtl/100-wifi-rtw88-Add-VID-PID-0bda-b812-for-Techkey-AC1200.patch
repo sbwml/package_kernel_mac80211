@@ -10,10 +10,10 @@ Signed-off-by: sbwml <admin@cooluc.com>
 
 --- a/drivers/net/wireless/realtek/rtw88/rtw8822bu.c
 +++ b/drivers/net/wireless/realtek/rtw88/rtw8822bu.c
-@@ -73,6 +73,8 @@ static const struct usb_device_id rtw_88
- 	  .driver_info = (kernel_ulong_t)&(rtw8822b_hw_spec) }, /* ELECOM WDB-867DU3S */
- 	{ USB_DEVICE_AND_INTERFACE_INFO(0x2c4e, 0x0107, 0xff, 0xff, 0xff),
- 	  .driver_info = (kernel_ulong_t)&(rtw8822b_hw_spec) }, /* Mercusys MA30H */
+@@ -77,6 +77,8 @@ static const struct usb_device_id rtw_88
+ 	  .driver_info = (kernel_ulong_t)&(rtw8822b_hw_spec) }, /* Mercusys MA30N */
+ 	{ USB_DEVICE_AND_INTERFACE_INFO(0x2001, 0x3322, 0xff, 0xff, 0xff),
+ 	  .driver_info = (kernel_ulong_t)&(rtw8822b_hw_spec) }, /* D-Link DWA-T185 rev. A1 */
 +	{ USB_DEVICE_AND_INTERFACE_INFO(0x0bda, 0xb812, 0xff, 0xff, 0xff),
 +	  .driver_info = (kernel_ulong_t)&(rtw8822b_hw_spec) }, /* Techkey AC1200 */
  	{},

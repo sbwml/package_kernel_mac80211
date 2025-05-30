@@ -26,7 +26,7 @@ Reviewed-by: Vasanthakumar Thiagarajan <vasanthakumar.thiagarajan@oss.qualcomm.c
 
 --- a/drivers/net/wireless/ath/ath12k/core.c
 +++ b/drivers/net/wireless/ath/ath12k/core.c
-@@ -1292,6 +1292,7 @@ static void ath12k_update_11d(struct wor
+@@ -1335,6 +1335,7 @@ static void ath12k_update_11d(struct wor
  		pdev = &ab->pdevs[i];
  		ar = pdev->ar;
  
@@ -36,7 +36,7 @@ Reviewed-by: Vasanthakumar Thiagarajan <vasanthakumar.thiagarajan@oss.qualcomm.c
  			ath12k_warn(ar->ab,
 --- a/drivers/net/wireless/ath/ath12k/core.h
 +++ b/drivers/net/wireless/ath/ath12k/core.h
-@@ -724,6 +724,7 @@ struct ath12k {
+@@ -751,6 +751,7 @@ struct ath12k {
  	u32 vdev_id_11d_scan;
  	struct completion completed_11d_scan;
  	enum ath12k_11d_state state_11d;
@@ -46,7 +46,7 @@ Reviewed-by: Vasanthakumar Thiagarajan <vasanthakumar.thiagarajan@oss.qualcomm.c
  	struct completion mlo_setup_done;
 --- a/drivers/net/wireless/ath/ath12k/mac.c
 +++ b/drivers/net/wireless/ath/ath12k/mac.c
-@@ -10037,6 +10037,14 @@ ath12k_mac_op_reconfig_complete(struct i
+@@ -10287,6 +10287,14 @@ ath12k_mac_op_reconfig_complete(struct i
  		ath12k_warn(ar->ab, "pdev %d successfully recovered\n",
  			    ar->pdev->pdev_id);
  
