@@ -19,7 +19,7 @@ Cc: Kalle Valo <kvalo@kernel.org>
 
 --- a/drivers/net/wireless/realtek/rtw88/usb.c
 +++ b/drivers/net/wireless/realtek/rtw88/usb.c
-@@ -502,9 +502,6 @@ static u8 rtw_usb_tx_queue_mapping_to_qs
+@@ -556,9 +556,6 @@ static u8 rtw_usb_tx_queue_mapping_to_qs
  
  	if (unlikely(ieee80211_is_mgmt(fc) || ieee80211_is_ctl(fc)))
  		qsel = TX_DESC_QSEL_MGMT;

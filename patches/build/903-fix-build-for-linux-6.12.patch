@@ -35,7 +35,7 @@
  
 --- a/drivers/net/wireless/virtual/mac80211_hwsim.c
 +++ b/drivers/net/wireless/virtual/mac80211_hwsim.c
-@@ -5551,9 +5551,10 @@ static int mac80211_hwsim_new_radio(stru
+@@ -5556,9 +5556,10 @@ static int mac80211_hwsim_new_radio(stru
  	wiphy_ext_feature_set(hw->wiphy, NL80211_EXT_FEATURE_CQM_RSSI_LIST);
  
  	for (i = 0; i < ARRAY_SIZE(data->link_data); i++) {
@@ -51,7 +51,7 @@
  	err = ieee80211_register_hw(hw);
 --- a/net/mac80211/debugfs_sta.c
 +++ b/net/mac80211/debugfs_sta.c
-@@ -457,12 +457,11 @@ static ssize_t link_sta_addr_read(struct
+@@ -451,12 +451,11 @@ static ssize_t link_sta_addr_read(struct
  				  size_t count, loff_t *ppos)
  {
  	struct link_sta_info *link_sta = file->private_data;
@@ -66,7 +66,7 @@
  }
  
  LINK_STA_OPS(addr);
-@@ -1241,7 +1240,7 @@ void ieee80211_sta_debugfs_add(struct st
+@@ -1235,7 +1234,7 @@ void ieee80211_sta_debugfs_add(struct st
  	struct ieee80211_local *local = sta->local;
  	struct ieee80211_sub_if_data *sdata = sta->sdata;
  	struct dentry *stations_dir = sta->sdata->debugfs.subdir_stations;

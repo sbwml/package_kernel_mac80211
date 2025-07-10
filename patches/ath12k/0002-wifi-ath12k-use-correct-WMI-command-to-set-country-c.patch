@@ -30,7 +30,7 @@ Reviewed-by: Vasanthakumar Thiagarajan <vasanthakumar.thiagarajan@oss.qualcomm.c
 
 --- a/drivers/net/wireless/ath/ath12k/hw.c
 +++ b/drivers/net/wireless/ath/ath12k/hw.c
-@@ -932,6 +932,7 @@ static const struct ath12k_hw_params ath
+@@ -967,6 +967,7 @@ static const struct ath12k_hw_params ath
  		.iova_mask = 0,
  
  		.supports_aspm = false,
@@ -38,7 +38,7 @@ Reviewed-by: Vasanthakumar Thiagarajan <vasanthakumar.thiagarajan@oss.qualcomm.c
  	},
  	{
  		.name = "wcn7850 hw2.0",
-@@ -1012,6 +1013,7 @@ static const struct ath12k_hw_params ath
+@@ -1047,6 +1048,7 @@ static const struct ath12k_hw_params ath
  		.iova_mask = ATH12K_PCIE_MAX_PAYLOAD_SIZE - 1,
  
  		.supports_aspm = true,
@@ -46,7 +46,7 @@ Reviewed-by: Vasanthakumar Thiagarajan <vasanthakumar.thiagarajan@oss.qualcomm.c
  	},
  	{
  		.name = "qcn9274 hw2.0",
-@@ -1088,6 +1090,7 @@ static const struct ath12k_hw_params ath
+@@ -1123,6 +1125,7 @@ static const struct ath12k_hw_params ath
  		.iova_mask = 0,
  
  		.supports_aspm = false,

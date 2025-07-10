@@ -23,7 +23,7 @@ Reviewed-by: Vasanthakumar Thiagarajan <vasanthakumar.thiagarajan@oss.qualcomm.c
 
 --- a/drivers/net/wireless/ath/ath12k/wmi.c
 +++ b/drivers/net/wireless/ath/ath12k/wmi.c
-@@ -3313,6 +3313,42 @@ out:
+@@ -3323,6 +3323,42 @@ out:
  	return ret;
  }
  
@@ -68,9 +68,9 @@ Reviewed-by: Vasanthakumar Thiagarajan <vasanthakumar.thiagarajan@oss.qualcomm.c
  {
 --- a/drivers/net/wireless/ath/ath12k/wmi.h
 +++ b/drivers/net/wireless/ath/ath12k/wmi.h
-@@ -4110,6 +4110,16 @@ struct ath12k_wmi_eht_rate_set_params {
+@@ -4111,6 +4111,16 @@ struct ath12k_wmi_eht_rate_set_params {
  #define REG_ALPHA2_LEN 2
- #define MAX_6G_REG_RULES 5
+ #define MAX_6GHZ_REG_RULES 5
  
 +struct wmi_set_current_country_arg {
 +	u8 alpha2[REG_ALPHA2_LEN];
@@ -85,7 +85,7 @@ Reviewed-by: Vasanthakumar Thiagarajan <vasanthakumar.thiagarajan@oss.qualcomm.c
  enum wmi_start_event_param {
  	WMI_VDEV_START_RESP_EVENT = 0,
  	WMI_VDEV_RESTART_RESP_EVENT,
-@@ -5990,6 +6000,9 @@ int ath12k_wmi_send_bcn_offload_control_
+@@ -5991,6 +6001,9 @@ int ath12k_wmi_send_bcn_offload_control_
  					    u32 vdev_id, u32 bcn_ctrl_op);
  int ath12k_wmi_send_init_country_cmd(struct ath12k *ar,
  				     struct ath12k_wmi_init_country_arg *arg);
