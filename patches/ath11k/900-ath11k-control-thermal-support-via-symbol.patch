@@ -62,5 +62,5 @@ Signed-off-by: Robert Marko <robimarko@gmail.com>
  ATH11K_SPECTRAL=
 +ATH11K_THERMAL=
  ATH12K=
+ ATH12K_AHB=
  ATH12K_DEBUG=
- ATH12K_DEBUGFS=

@@ -76,7 +76,7 @@ Signed-off-by: George Moussalem <george.moussalem@outlook.com>
  };
  
  static inline void ath11k_hif_ce_irq_enable(struct ath11k_base *ab)
-@@ -153,4 +154,12 @@ static inline void ath11k_hif_coredump_d
+@@ -159,4 +160,12 @@ static inline void ath11k_hif_coredump_d
  		ab->hif.ops->coredump_download(ab);
  }
  

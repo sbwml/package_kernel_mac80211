@@ -35,7 +35,7 @@
  
 --- a/drivers/net/wireless/virtual/mac80211_hwsim.c
 +++ b/drivers/net/wireless/virtual/mac80211_hwsim.c
-@@ -5556,9 +5556,10 @@ static int mac80211_hwsim_new_radio(stru
+@@ -5557,9 +5557,10 @@ static int mac80211_hwsim_new_radio(stru
  	wiphy_ext_feature_set(hw->wiphy, NL80211_EXT_FEATURE_CQM_RSSI_LIST);
  
  	for (i = 0; i < ARRAY_SIZE(data->link_data); i++) {

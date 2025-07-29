@@ -1,0 +1,77 @@
+From 15a1bd2ac0618039793290c815441574ec8d63f7 Mon Sep 17 00:00:00 2001
+From: sbwml <admin@cooluc.com>
+Date: Wed, 30 Jul 2025 03:10:55 +0800
+Subject: [PATCH] Revert wifi: check if socket flags are valid
+
+Signed-off-by: sbwml <admin@cooluc.com>
+---
+ drivers/net/wireless/ath/wil6210/txrx.h     | 3 ++-
+ drivers/net/wireless/marvell/mwifiex/main.c | 3 ++-
+ net/mac80211/mesh.c                         | 2 +-
+ net/mac80211/tx.c                           | 6 +++---
+ 4 files changed, 8 insertions(+), 6 deletions(-)
+
+--- a/drivers/net/wireless/ath/wil6210/txrx.h
++++ b/drivers/net/wireless/ath/wil6210/txrx.h
+@@ -617,7 +617,8 @@ static inline bool wil_need_txstat(struc
+ {
+ 	const u8 *da = wil_skb_get_da(skb);
+ 
+-	return is_unicast_ether_addr(da) && sk_requests_wifi_status(skb->sk);
++	return is_unicast_ether_addr(da) && skb->sk &&
++	       sock_flag(skb->sk, SOCK_WIFI_STATUS);
+ }
+ 
+ static inline void wil_consume_skb(struct sk_buff *skb, bool acked)
+--- a/drivers/net/wireless/marvell/mwifiex/main.c
++++ b/drivers/net/wireless/marvell/mwifiex/main.c
+@@ -913,7 +913,8 @@ mwifiex_hard_start_xmit(struct sk_buff *
+ 
+ 	multicast = is_multicast_ether_addr(skb->data);
+ 
+-	if (unlikely(!multicast && sk_requests_wifi_status(skb->sk) &&
++	if (unlikely(!multicast && skb->sk &&
++		     sock_flag(skb->sk, SOCK_WIFI_STATUS) &&
+ 		     priv->adapter->fw_api_ver == MWIFIEX_FW_V15))
+ 		skb = mwifiex_clone_skb_for_tx_status(priv,
+ 						      skb,
+--- a/net/mac80211/mesh.c
++++ b/net/mac80211/mesh.c
+@@ -777,7 +777,7 @@ bool ieee80211_mesh_xmit_fast(struct iee
+ 	if (ethertype < ETH_P_802_3_MIN)
+ 		return false;
+ 
+-	if (sk_requests_wifi_status(skb->sk))
++	if (skb->sk && sock_flag(skb->sk, SOCK_WIFI_STATUS))
+ 		return false;
+ 
+ 	if (skb->ip_summed == CHECKSUM_PARTIAL) {
+--- a/net/mac80211/tx.c
++++ b/net/mac80211/tx.c
+@@ -2859,7 +2859,7 @@ static struct sk_buff *ieee80211_build_h
+ 	}
+ 
+ 	if (unlikely(!multicast &&
+-		     (sk_requests_wifi_status(skb->sk) ||
++		     ((skb->sk && sock_flag(skb->sk, SOCK_WIFI_STATUS)) ||
+ 		      ctrl_flags & IEEE80211_TX_CTL_REQ_TX_STATUS)))
+ 		info_id = ieee80211_store_ack_skb(local, skb, &info_flags,
+ 						  cookie);
+@@ -3756,7 +3756,7 @@ static bool ieee80211_xmit_fast(struct i
+ 		return false;
+ 
+ 	/* don't handle TX status request here either */
+-	if (sk_requests_wifi_status(skb->sk))
++	if (skb->sk && sock_flag(skb->sk, SOCK_WIFI_STATUS))
+ 		return false;
+ 
+ 	if (hdr->frame_control & cpu_to_le16(IEEE80211_STYPE_QOS_DATA)) {
+@@ -4648,7 +4648,7 @@ static void ieee80211_8023_xmit(struct i
+ 			memcpy(IEEE80211_SKB_CB(seg), info, sizeof(*info));
+ 	}
+ 
+-	if (unlikely(sk_requests_wifi_status(skb->sk))) {
++	if (unlikely(skb->sk && sock_flag(skb->sk, SOCK_WIFI_STATUS))) {
+ 		info->status_data = ieee80211_store_ack_skb(local, skb,
+ 							    &info->flags, NULL);
+ 		if (info->status_data)

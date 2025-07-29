@@ -13,7 +13,7 @@
  static const struct platform_device_id ath9k_platform_id_table[] = {
  	{
  		.name = "ath9k",
-@@ -69,22 +73,198 @@ static const struct ath_bus_ops ath_ahb_
+@@ -69,21 +73,198 @@ static const struct ath_bus_ops ath_ahb_
  	.eeprom_read = ath_ahb_eeprom_read,
  };
  
@@ -203,22 +203,21 @@
  	void __iomem *mem;
  	struct ath_softc *sc;
  	struct ieee80211_hw *hw;
- 	struct resource *res;
 -	const struct platform_device_id *id = platform_get_device_id(pdev);
  	int irq;
  	int ret = 0;
  	struct ath_hw *ah;
  	char hw_name[64];
--
+ 
 -	if (!dev_get_platdata(&pdev->dev)) {
 -		dev_err(&pdev->dev, "no platform data specified\n");
 -		return -EINVAL;
 -	}
 +	u32 dev_id;
  
- 	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
- 	if (res == NULL) {
-@@ -124,7 +304,8 @@ static int ath_ahb_probe(struct platform
+ 	mem = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(mem)) {
+@@ -117,7 +298,8 @@ static int ath_ahb_probe(struct platform
  		goto err_free_hw;
  	}
  
@@ -228,7 +227,7 @@
  	if (ret) {
  		dev_err(&pdev->dev, "failed to initialize device\n");
  		goto err_irq;
-@@ -174,6 +355,7 @@ static struct platform_driver ath_ahb_dr
+@@ -167,6 +349,7 @@ static struct platform_driver ath_ahb_dr
  	
  	.driver = {
  		.name = "ath9k",
