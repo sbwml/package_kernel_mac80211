@@ -393,7 +393,7 @@ endef
 define KernelPackage/rtw88-8822cs
   $(call KernelPackage/mac80211/Default)
   TITLE:=Realtek RTL8822CS support
-  DEPENDS+= +kmod-rtw88-sdio +kmod-rtw88-8822c +rtl8822cs-firmware
+  DEPENDS+= +kmod-rtw88-sdio +kmod-rtw88-8822c
   FILES:=$(PKG_BUILD_DIR)/drivers/net/wireless/realtek/rtw88/rtw88_8822cs.ko
   AUTOLOAD:=$(call AutoProbe,rtw88_8822cs)
 endef
