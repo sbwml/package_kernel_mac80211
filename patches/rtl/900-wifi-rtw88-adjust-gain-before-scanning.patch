@@ -13,7 +13,7 @@ Signed-off-by: MartinHruza <martin.hruza123@gmail.com>
 
 --- a/drivers/net/wireless/realtek/rtw88/main.c
 +++ b/drivers/net/wireless/realtek/rtw88/main.c
-@@ -1476,6 +1476,8 @@ void rtw_core_scan_start(struct rtw_dev
+@@ -1483,6 +1483,8 @@ void rtw_core_scan_start(struct rtw_dev
  
  	set_bit(RTW_FLAG_DIG_DISABLE, rtwdev->flags);
  	set_bit(RTW_FLAG_SCANNING, rtwdev->flags);
@@ -22,7 +22,7 @@ Signed-off-by: MartinHruza <martin.hruza123@gmail.com>
  }
  
  void rtw_core_scan_complete(struct rtw_dev *rtwdev, struct ieee80211_vif *vif,
-@@ -1487,6 +1489,7 @@ void rtw_core_scan_complete(struct rtw_d
+@@ -1494,6 +1496,7 @@ void rtw_core_scan_complete(struct rtw_d
  	if (!rtwvif)
  		return;
  
