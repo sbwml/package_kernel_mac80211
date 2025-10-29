@@ -40,7 +40,7 @@ Signed-off-by: Sriram R <srirrama@codeaurora.org>
  
 +static void ath11k_dp_handle_reo_status_timer(struct timer_list *timer)
 +{
-+	struct ath11k_dp *dp = from_timer(dp, timer, reo_status_timer);
++	struct ath11k_dp *dp = timer_container_of(dp, timer, reo_status_timer);
 +	struct ath11k_base *ab = dp->ab;
 +
 +	spin_lock_bh(&dp->reo_cmd_lock);
@@ -76,7 +76,7 @@ Signed-off-by: Sriram R <srirrama@codeaurora.org>
 +	if (!ab->hw_params.reo_status_poll)
 +		return;
 +
-+	del_timer_sync(&dp->reo_status_timer);
++	timer_delete_sync(&dp->reo_status_timer);
 +	dp->reo_status_timer_running = false;
 +}
 +

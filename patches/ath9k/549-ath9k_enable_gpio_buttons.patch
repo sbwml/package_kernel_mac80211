@@ -29,7 +29,7 @@ Signed-off-by: Felix Fietkau <nbd@nbd.name>
  
  #ifdef CPTCFG_MAC80211_LEDS
  
-@@ -117,6 +119,67 @@ static void ath9k_unregister_gpio_chip(s
+@@ -119,6 +121,67 @@ static void ath9k_unregister_gpio_chip(s
  	kfree(gc);
  }
  
@@ -97,7 +97,7 @@ Signed-off-by: Felix Fietkau <nbd@nbd.name>
  #else /* CONFIG_GPIOLIB */
  
  static inline void ath9k_register_gpio_chip(struct ath_softc *sc)
-@@ -127,6 +190,14 @@ static inline void ath9k_unregister_gpio
+@@ -129,6 +192,14 @@ static inline void ath9k_unregister_gpio
  {
  }
  
@@ -112,7 +112,7 @@ Signed-off-by: Felix Fietkau <nbd@nbd.name>
  #endif /* CONFIG_GPIOLIB */
  
  /********************************/
-@@ -232,6 +303,7 @@ void ath_deinit_leds(struct ath_softc *s
+@@ -234,6 +305,7 @@ void ath_deinit_leds(struct ath_softc *s
  {
  	struct ath_led *led;
  
@@ -120,7 +120,7 @@ Signed-off-by: Felix Fietkau <nbd@nbd.name>
  	while (!list_empty(&sc->leds)) {
  		led = list_first_entry(&sc->leds, struct ath_led, list);
  #ifdef CONFIG_GPIOLIB
-@@ -267,6 +339,7 @@ void ath_init_leds(struct ath_softc *sc)
+@@ -269,6 +341,7 @@ void ath_init_leds(struct ath_softc *sc)
  	}
  
  	ath_fill_led_pin(sc);
