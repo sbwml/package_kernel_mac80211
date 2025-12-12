@@ -656,7 +656,7 @@
  
 --- a/net/wireless/trace.h
 +++ b/net/wireless/trace.h
-@@ -457,7 +457,11 @@ TRACE_EVENT(rdev_add_virtual_intf,
+@@ -478,7 +478,11 @@ TRACE_EVENT(rdev_add_virtual_intf,
  	),
  	TP_fast_assign(
  		WIPHY_ASSIGN;
