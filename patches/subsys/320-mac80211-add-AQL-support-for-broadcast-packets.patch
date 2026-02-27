@@ -12,7 +12,7 @@ Signed-off-by: Felix Fietkau <nbd@nbd.name>
 
 --- a/include/net/cfg80211.h
 +++ b/include/net/cfg80211.h
-@@ -3601,6 +3601,7 @@ enum wiphy_params_flags {
+@@ -3604,6 +3604,7 @@ enum wiphy_params_flags {
  /* The per TXQ device queue limit in airtime */
  #define IEEE80211_DEFAULT_AQL_TXQ_LIMIT_L	5000
  #define IEEE80211_DEFAULT_AQL_TXQ_LIMIT_H	12000
@@ -22,7 +22,7 @@ Signed-off-by: Felix Fietkau <nbd@nbd.name>
  #define IEEE80211_AQL_THRESHOLD			24000
 --- a/net/mac80211/debugfs.c
 +++ b/net/mac80211/debugfs.c
-@@ -210,11 +210,13 @@ static ssize_t aql_pending_read(struct f
+@@ -213,11 +213,13 @@ static ssize_t aql_pending_read(struct f
  			"VI     %u us\n"
  			"BE     %u us\n"
  			"BK     %u us\n"
@@ -36,7 +36,7 @@ Signed-off-by: Felix Fietkau <nbd@nbd.name>
  			atomic_read(&local->aql_total_pending_airtime));
  	return simple_read_from_buffer(user_buf, count, ppos,
  				       buf, len);
-@@ -239,7 +241,8 @@ static ssize_t aql_txq_limit_read(struct
+@@ -243,7 +245,8 @@ static ssize_t aql_txq_limit_read(struct
  			"VO	%u		%u\n"
  			"VI	%u		%u\n"
  			"BE	%u		%u\n"
@@ -46,7 +46,7 @@ Signed-off-by: Felix Fietkau <nbd@nbd.name>
  			local->aql_txq_limit_low[IEEE80211_AC_VO],
  			local->aql_txq_limit_high[IEEE80211_AC_VO],
  			local->aql_txq_limit_low[IEEE80211_AC_VI],
-@@ -247,7 +250,8 @@ static ssize_t aql_txq_limit_read(struct
+@@ -251,7 +254,8 @@ static ssize_t aql_txq_limit_read(struct
  			local->aql_txq_limit_low[IEEE80211_AC_BE],
  			local->aql_txq_limit_high[IEEE80211_AC_BE],
  			local->aql_txq_limit_low[IEEE80211_AC_BK],
@@ -56,7 +56,7 @@ Signed-off-by: Felix Fietkau <nbd@nbd.name>
  	return simple_read_from_buffer(user_buf, count, ppos,
  				       buf, len);
  }
-@@ -273,6 +277,11 @@ static ssize_t aql_txq_limit_write(struc
+@@ -277,6 +281,11 @@ static ssize_t aql_txq_limit_write(struc
  	else
  		buf[count] = '\0';
  
