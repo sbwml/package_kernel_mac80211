@@ -1,0 +1,313 @@
+From 3c46b6a831adf6a5b44a44b089a57d65bb26b5ea Mon Sep 17 00:00:00 2001
+From: sbwml <admin@cooluc.com>
+Date: Sun, 10 May 2026 00:05:29 +0800
+Subject: [PATCH] Revert "wifi: ath11k: move .max_tx_ring to struct
+ ath11k_hw_hal_params"
+
+This reverts commit b515730ec3d231aa36b6177524532fc7d94f1750.
+---
+ drivers/net/wireless/ath/ath11k/core.c    | 12 +++++++++++-
+ drivers/net/wireless/ath/ath11k/debugfs.c |  2 +-
+ drivers/net/wireless/ath/ath11k/dp.c      | 12 ++++++------
+ drivers/net/wireless/ath/ath11k/dp.h      |  1 +
+ drivers/net/wireless/ath/ath11k/dp_tx.c   |  9 ++++-----
+ drivers/net/wireless/ath/ath11k/hw.c      | 19 +------------------
+ drivers/net/wireless/ath/ath11k/hw.h      |  3 +--
+ drivers/net/wireless/ath/ath11k/mac.c     |  2 +-
+ 8 files changed, 26 insertions(+), 34 deletions(-)
+
+--- a/drivers/net/wireless/ath/ath11k/core.c
++++ b/drivers/net/wireless/ath/ath11k/core.c
+@@ -99,6 +99,7 @@ static struct ath11k_hw_params ath11k_hw
+ 		.supports_regdb = false,
+ 		.fix_l1ss = true,
+ 		.credit_flow = false,
++		.max_tx_ring = DP_TCL_NUM_RING_MAX,
+ 		.hal_params = &ath11k_hw_hal_params_ipq8074,
+ 		.supports_dynamic_smps_6ghz = false,
+ 		.alloc_cacheable_memory = true,
+@@ -185,6 +186,7 @@ static struct ath11k_hw_params ath11k_hw
+ 		.supports_regdb = false,
+ 		.fix_l1ss = true,
+ 		.credit_flow = false,
++		.max_tx_ring = DP_TCL_NUM_RING_MAX,
+ 		.hal_params = &ath11k_hw_hal_params_ipq8074,
+ 		.supports_dynamic_smps_6ghz = false,
+ 		.alloc_cacheable_memory = true,
+@@ -274,6 +276,7 @@ static struct ath11k_hw_params ath11k_hw
+ 		.supports_regdb = false,
+ 		.fix_l1ss = true,
+ 		.credit_flow = true,
++		.max_tx_ring = DP_TCL_NUM_RING_MAX_QCA6390,
+ 		.hal_params = &ath11k_hw_hal_params_qca6390,
+ 		.supports_dynamic_smps_6ghz = false,
+ 		.alloc_cacheable_memory = false,
+@@ -363,6 +366,7 @@ static struct ath11k_hw_params ath11k_hw
+ 		.supports_regdb = false,
+ 		.fix_l1ss = true,
+ 		.credit_flow = false,
++		.max_tx_ring = DP_TCL_NUM_RING_MAX,
+ 		.hal_params = &ath11k_hw_hal_params_ipq8074,
+ 		.supports_dynamic_smps_6ghz = true,
+ 		.alloc_cacheable_memory = true,
+@@ -452,6 +456,7 @@ static struct ath11k_hw_params ath11k_hw
+ 		.supports_regdb = true,
+ 		.fix_l1ss = false,
+ 		.credit_flow = true,
++		.max_tx_ring = DP_TCL_NUM_RING_MAX_QCA6390,
+ 		.hal_params = &ath11k_hw_hal_params_qca6390,
+ 		.supports_dynamic_smps_6ghz = false,
+ 		.alloc_cacheable_memory = false,
+@@ -542,6 +547,7 @@ static struct ath11k_hw_params ath11k_hw
+ 		.supports_regdb = true,
+ 		.fix_l1ss = false,
+ 		.credit_flow = true,
++		.max_tx_ring = DP_TCL_NUM_RING_MAX_QCA6390,
+ 		.hal_params = &ath11k_hw_hal_params_qca6390,
+ 		.supports_dynamic_smps_6ghz = false,
+ 		.alloc_cacheable_memory = false,
+@@ -630,6 +636,7 @@ static struct ath11k_hw_params ath11k_hw
+ 		.supports_regdb = true,
+ 		.fix_l1ss = false,
+ 		.credit_flow = true,
++		.max_tx_ring = DP_TCL_NUM_RING_MAX,
+ 		.hal_params = &ath11k_hw_hal_params_wcn6750,
+ 		.supports_dynamic_smps_6ghz = false,
+ 		.alloc_cacheable_memory = false,
+@@ -675,6 +682,7 @@ static struct ath11k_hw_params ath11k_hw
+ 		.qmi_service_ins_id = ATH11K_QMI_WLFW_SERVICE_INS_ID_V01_IPQ8074,
+ 		.ring_mask = &ath11k_hw_ring_mask_ipq8074,
+ 		.credit_flow = false,
++		.max_tx_ring = 1,
+ 		.spectral = {
+ 			.fft_sz = 2,
+ 			.fft_pad_sz = 0,
+@@ -710,7 +718,7 @@ static struct ath11k_hw_params ath11k_hw
+ 		.supports_regdb = false,
+ 		.idle_ps = false,
+ 		.supports_suspend = false,
+-		.hal_params = &ath11k_hw_hal_params_ipq5018,
++		.hal_params = &ath11k_hw_hal_params_ipq8074,
+ 		.single_pdev_only = false,
+ 		.coldboot_cal_mm = false,
+ 		.coldboot_cal_ftm = false,
+@@ -804,6 +812,7 @@ static struct ath11k_hw_params ath11k_hw
+ 		.supports_regdb = true,
+ 		.fix_l1ss = false,
+ 		.credit_flow = true,
++		.max_tx_ring = DP_TCL_NUM_RING_MAX_QCA6390,
+ 		.hal_params = &ath11k_hw_hal_params_qca6390,
+ 		.supports_dynamic_smps_6ghz = false,
+ 		.alloc_cacheable_memory = false,
+@@ -893,6 +902,7 @@ static struct ath11k_hw_params ath11k_hw
+ 		.supports_regdb = true,
+ 		.fix_l1ss = false,
+ 		.credit_flow = true,
++		.max_tx_ring = DP_TCL_NUM_RING_MAX_QCA6390,
+ 		.hal_params = &ath11k_hw_hal_params_qca6390,
+ 		.supports_dynamic_smps_6ghz = false,
+ 		.alloc_cacheable_memory = false,
+--- a/drivers/net/wireless/ath/ath11k/debugfs.c
++++ b/drivers/net/wireless/ath/ath11k/debugfs.c
+@@ -707,7 +707,7 @@ static ssize_t ath11k_debugfs_dump_soc_d
+ 	len += scnprintf(buf + len, size - len, "\nSOC TX STATS:\n");
+ 	len += scnprintf(buf + len, size - len, "\nTCL Ring Full Failures:\n");
+ 
+-	for (i = 0; i < ab->hw_params.hal_params->num_tx_rings; i++)
++	for (i = 0; i < ab->hw_params.max_tx_ring; i++)
+ 		len += scnprintf(buf + len, size - len, "ring%d: %u\n",
+ 				 i, soc_stats->tx_err.desc_na[i]);
+ 
+--- a/drivers/net/wireless/ath/ath11k/dp.c
++++ b/drivers/net/wireless/ath/ath11k/dp.c
+@@ -344,7 +344,7 @@ void ath11k_dp_stop_shadow_timers(struct
+ 	if (!ab->hw_params.supports_shadow_regs)
+ 		return;
+ 
+-	for (i = 0; i < ab->hw_params.hal_params->num_tx_rings; i++)
++	for (i = 0; i < ab->hw_params.max_tx_ring; i++)
+ 		ath11k_dp_shadow_stop_timer(ab, &ab->dp.tx_ring_timer[i]);
+ 
+ 	ath11k_dp_shadow_stop_timer(ab, &ab->dp.reo_cmd_timer);
+@@ -359,7 +359,7 @@ static void ath11k_dp_srng_common_cleanu
+ 	ath11k_dp_srng_cleanup(ab, &dp->wbm_desc_rel_ring);
+ 	ath11k_dp_srng_cleanup(ab, &dp->tcl_cmd_ring);
+ 	ath11k_dp_srng_cleanup(ab, &dp->tcl_status_ring);
+-	for (i = 0; i < ab->hw_params.hal_params->num_tx_rings; i++) {
++	for (i = 0; i < ab->hw_params.max_tx_ring; i++) {
+ 		ath11k_dp_srng_cleanup(ab, &dp->tx_ring[i].tcl_data_ring);
+ 		ath11k_dp_srng_cleanup(ab, &dp->tx_ring[i].tcl_comp_ring);
+ 	}
+@@ -400,7 +400,7 @@ static int ath11k_dp_srng_common_setup(s
+ 		goto err;
+ 	}
+ 
+-	for (i = 0; i < ab->hw_params.hal_params->num_tx_rings; i++) {
++	for (i = 0; i < ab->hw_params.max_tx_ring; i++) {
+ 		tcl_num = ab->hw_params.hal_params->tcl2wbm_rbm_map[i].tcl_ring_num;
+ 		wbm_num = ab->hw_params.hal_params->tcl2wbm_rbm_map[i].wbm_ring_num;
+ 
+@@ -782,7 +782,7 @@ int ath11k_dp_service_srng(struct ath11k
+ 	int i, j;
+ 	int tot_work_done = 0;
+ 
+-	for (i = 0; i < ab->hw_params.hal_params->num_tx_rings; i++) {
++	for (i = 0; i < ab->hw_params.max_tx_ring; i++) {
+ 		if (BIT(ab->hw_params.hal_params->tcl2wbm_rbm_map[i].wbm_ring_num) &
+ 		    ab->hw_params.ring_mask->tx[grp_id])
+ 			ath11k_dp_tx_completion_handler(ab, i);
+@@ -1035,7 +1035,7 @@ void ath11k_dp_free(struct ath11k_base *
+ 
+ 	ath11k_dp_reo_cmd_list_cleanup(ab);
+ 
+-	for (i = 0; i < ab->hw_params.hal_params->num_tx_rings; i++) {
++	for (i = 0; i < ab->hw_params.max_tx_ring; i++) {
+ 		spin_lock_bh(&dp->tx_ring[i].tx_idr_lock);
+ 		idr_for_each(&dp->tx_ring[i].txbuf_idr,
+ 			     ath11k_dp_tx_pending_cleanup, ab);
+@@ -1086,7 +1086,7 @@ int ath11k_dp_alloc(struct ath11k_base *
+ 
+ 	size = sizeof(struct hal_wbm_release_ring) * DP_TX_COMP_RING_SIZE;
+ 
+-	for (i = 0; i < ab->hw_params.hal_params->num_tx_rings; i++) {
++	for (i = 0; i < ab->hw_params.max_tx_ring; i++) {
+ 		idr_init(&dp->tx_ring[i].txbuf_idr);
+ 		spin_lock_init(&dp->tx_ring[i].tx_idr_lock);
+ 		dp->tx_ring[i].tcl_data_ring_id = i;
+--- a/drivers/net/wireless/ath/ath11k/dp.h
++++ b/drivers/net/wireless/ath/ath11k/dp.h
+@@ -199,6 +199,7 @@ struct ath11k_pdev_dp {
+ #define DP_BA_WIN_SZ_MAX	256
+ 
+ #define DP_TCL_NUM_RING_MAX	3
++#define DP_TCL_NUM_RING_MAX_QCA6390	1
+ 
+ #define DP_IDLE_SCATTER_BUFS_MAX 16
+ 
+--- a/drivers/net/wireless/ath/ath11k/dp_tx.c
++++ b/drivers/net/wireless/ath/ath11k/dp_tx.c
+@@ -91,7 +91,6 @@ int ath11k_dp_tx(struct ath11k *ar, stru
+ 	struct hal_srng *tcl_ring;
+ 	struct ieee80211_hdr *hdr = (void *)skb->data;
+ 	struct dp_tx_ring *tx_ring;
+-	size_t num_tx_rings = ab->hw_params.hal_params->num_tx_rings;
+ 	void *hal_tcl_desc;
+ 	u8 pool_id;
+ 	u8 hal_ring_id;
+@@ -114,7 +113,7 @@ int ath11k_dp_tx(struct ath11k *ar, stru
+ tcl_ring_sel:
+ 	tcl_ring_retry = false;
+ 
+-	ti.ring_id = ring_selector % num_tx_rings;
++	ti.ring_id = ring_selector % ab->hw_params.max_tx_ring;
+ 	ti.rbm_id = ab->hw_params.hal_params->tcl2wbm_rbm_map[ti.ring_id].rbm_id;
+ 
+ 	ring_map |= BIT(ti.ring_id);
+@@ -127,7 +126,7 @@ tcl_ring_sel:
+ 	spin_unlock_bh(&tx_ring->tx_idr_lock);
+ 
+ 	if (unlikely(ret < 0)) {
+-		if (ring_map == (BIT(num_tx_rings) - 1) ||
++		if (ring_map == (BIT(ab->hw_params.max_tx_ring) - 1) ||
+ 		    !ab->hw_params.tcl_ring_retry) {
+ 			atomic_inc(&ab->soc_stats.tx_err.misc_fail);
+ 			return -ENOSPC;
+@@ -245,8 +244,8 @@ tcl_ring_sel:
+ 		 * checking this ring earlier for each pkt tx.
+ 		 * Restart ring selection if some rings are not checked yet.
+ 		 */
+-		if (unlikely(ring_map != (BIT(num_tx_rings)) - 1) &&
+-		    ab->hw_params.tcl_ring_retry && num_tx_rings > 1) {
++		if (unlikely(ring_map != (BIT(ab->hw_params.max_tx_ring)) - 1) &&
++		    ab->hw_params.tcl_ring_retry && ab->hw_params.max_tx_ring > 1) {
+ 			tcl_ring_retry = true;
+ 			ring_selector++;
+ 		}
+--- a/drivers/net/wireless/ath/ath11k/hw.c
++++ b/drivers/net/wireless/ath/ath11k/hw.c
+@@ -2744,14 +2744,6 @@ const struct ath11k_hw_regs wcn6750_regs
+ 	.hal_reo1_misc_ctl = 0x000005d8,
+ };
+ 
+-static const struct ath11k_hw_tcl2wbm_rbm_map ath11k_hw_tcl2wbm_rbm_map_ipq5018[] = {
+-	{
+-		.tcl_ring_num = 0,
+-		.wbm_ring_num = 0,
+-		.rbm_id = HAL_RX_BUF_RBM_SW0_BM,
+-	},
+-};
+-
+ static const struct ath11k_hw_tcl2wbm_rbm_map ath11k_hw_tcl2wbm_rbm_map_ipq8074[] = {
+ 	{
+ 		.tcl_ring_num = 0,
+@@ -2867,12 +2859,6 @@ const struct ath11k_hw_regs ipq5018_regs
+ 	.hal_wbm1_release_ring_base_lsb = 0x0000097c,
+ };
+ 
+-const struct ath11k_hw_hal_params ath11k_hw_hal_params_ipq5018 = {
+-	.rx_buf_rbm = HAL_RX_BUF_RBM_SW3_BM,
+-	.tcl2wbm_rbm_map = ath11k_hw_tcl2wbm_rbm_map_ipq5018,
+-	.num_tx_rings = ARRAY_SIZE(ath11k_hw_tcl2wbm_rbm_map_ipq5018),
+-};
+-
+ const struct ath11k_hw_regs qcn6122_regs = {
+ 	/* SW2TCL(x) R0 ring configuration address */
+ 	.hal_tcl1_ring_base_lsb = 0x00000694,
+@@ -2951,19 +2937,16 @@ const struct ath11k_hw_regs qcn6122_regs
+ const struct ath11k_hw_hal_params ath11k_hw_hal_params_ipq8074 = {
+ 	.rx_buf_rbm = HAL_RX_BUF_RBM_SW3_BM,
+ 	.tcl2wbm_rbm_map = ath11k_hw_tcl2wbm_rbm_map_ipq8074,
+-	.num_tx_rings = ARRAY_SIZE(ath11k_hw_tcl2wbm_rbm_map_ipq8074),
+ };
+ 
+ const struct ath11k_hw_hal_params ath11k_hw_hal_params_qca6390 = {
+ 	.rx_buf_rbm = HAL_RX_BUF_RBM_SW1_BM,
+-	.tcl2wbm_rbm_map = ath11k_hw_tcl2wbm_rbm_map_ipq5018,
+-	.num_tx_rings = ARRAY_SIZE(ath11k_hw_tcl2wbm_rbm_map_ipq5018),
++	.tcl2wbm_rbm_map = ath11k_hw_tcl2wbm_rbm_map_ipq8074,
+ };
+ 
+ const struct ath11k_hw_hal_params ath11k_hw_hal_params_wcn6750 = {
+ 	.rx_buf_rbm = HAL_RX_BUF_RBM_SW1_BM,
+ 	.tcl2wbm_rbm_map = ath11k_hw_tcl2wbm_rbm_map_wcn6750,
+-	.num_tx_rings = ARRAY_SIZE(ath11k_hw_tcl2wbm_rbm_map_wcn6750),
+ };
+ 
+ static const struct cfg80211_sar_freq_ranges ath11k_hw_sar_freq_ranges_wcn6855[] = {
+--- a/drivers/net/wireless/ath/ath11k/hw.h
++++ b/drivers/net/wireless/ath/ath11k/hw.h
+@@ -139,7 +139,6 @@ struct ath11k_hw_tcl2wbm_rbm_map {
+ struct ath11k_hw_hal_params {
+ 	enum hal_rx_buf_return_buf_manager rx_buf_rbm;
+ 	const struct ath11k_hw_tcl2wbm_rbm_map *tcl2wbm_rbm_map;
+-	size_t num_tx_rings;
+ };
+ 
+ struct ath11k_hw_params {
+@@ -204,6 +203,7 @@ struct ath11k_hw_params {
+ 	bool supports_regdb;
+ 	bool fix_l1ss;
+ 	bool credit_flow;
++	u8 max_tx_ring;
+ 	const struct ath11k_hw_hal_params *hal_params;
+ 	bool supports_dynamic_smps_6ghz;
+ 	bool alloc_cacheable_memory;
+@@ -300,7 +300,6 @@ extern const struct ce_ie_addr ath11k_ce
+ 
+ extern const struct ce_remap ath11k_ce_remap_ipq5018;
+ 
+-extern const struct ath11k_hw_hal_params ath11k_hw_hal_params_ipq5018;
+ extern const struct ath11k_hw_hal_params ath11k_hw_hal_params_ipq8074;
+ extern const struct ath11k_hw_hal_params ath11k_hw_hal_params_qca6390;
+ extern const struct ath11k_hw_hal_params ath11k_hw_hal_params_wcn6750;
+--- a/drivers/net/wireless/ath/ath11k/mac.c
++++ b/drivers/net/wireless/ath/ath11k/mac.c
+@@ -7407,7 +7407,7 @@ err_vdev_del:
+ 	idr_for_each(&ar->txmgmt_idr,
+ 		     ath11k_mac_vif_txmgmt_idr_remove, vif);
+ 
+-	for (i = 0; i < ab->hw_params.hal_params->num_tx_rings; i++) {
++	for (i = 0; i < ab->hw_params.max_tx_ring; i++) {
+ 		spin_lock_bh(&ab->dp.tx_ring[i].tx_idr_lock);
+ 		idr_for_each(&ab->dp.tx_ring[i].txbuf_idr,
+ 			     ath11k_mac_vif_unref, vif);

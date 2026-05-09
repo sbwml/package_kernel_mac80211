@@ -10,10 +10,10 @@ Signed-off-by: sbwml <admin@cooluc.com>
 
 --- a/drivers/net/wireless/realtek/rtw88/rtw8822bu.c
 +++ b/drivers/net/wireless/realtek/rtw88/rtw8822bu.c
-@@ -79,6 +79,8 @@ static const struct usb_device_id rtw_88
- 	  .driver_info = (kernel_ulong_t)&(rtw8822b_hw_spec) }, /* D-Link DWA-T185 rev. A1 */
- 	{ USB_DEVICE_AND_INTERFACE_INFO(0x0411, 0x03d1, 0xff, 0xff, 0xff),
+@@ -81,6 +81,8 @@ static const struct usb_device_id rtw_88
  	  .driver_info = (kernel_ulong_t)&(rtw8822b_hw_spec) }, /* BUFFALO WI-U2-866DM */
+ 	{ USB_DEVICE_AND_INTERFACE_INFO(0x0411, 0x03d0, 0xff, 0xff, 0xff),
+ 	  .driver_info = (kernel_ulong_t)&(rtw8822b_hw_spec) }, /* BUFFALO WI-U3-866DHP */
 +	{ USB_DEVICE_AND_INTERFACE_INFO(0x0bda, 0xb812, 0xff, 0xff, 0xff),
 +	  .driver_info = (kernel_ulong_t)&(rtw8822b_hw_spec) }, /* Techkey AC1200 */
  	{},
