@@ -124,7 +124,7 @@ Best regards,
 
 --- a/drivers/net/wireless/ath/ath12k/mac.c
 +++ b/drivers/net/wireless/ath/ath12k/mac.c
-@@ -8429,9 +8429,7 @@ static void ath12k_mac_setup_ht_vht_cap(
+@@ -8440,9 +8440,7 @@ static void ath12k_mac_setup_ht_vht_cap(
  						    rate_cap_rx_chainmask);
  	}
  

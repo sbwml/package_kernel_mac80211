@@ -302,7 +302,7 @@ This reverts commit b515730ec3d231aa36b6177524532fc7d94f1750.
  extern const struct ath11k_hw_hal_params ath11k_hw_hal_params_wcn6750;
 --- a/drivers/net/wireless/ath/ath11k/mac.c
 +++ b/drivers/net/wireless/ath/ath11k/mac.c
-@@ -7407,7 +7407,7 @@ err_vdev_del:
+@@ -7413,7 +7413,7 @@ err_vdev_del:
  	idr_for_each(&ar->txmgmt_idr,
  		     ath11k_mac_vif_txmgmt_idr_remove, vif);
  

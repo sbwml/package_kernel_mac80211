@@ -88,7 +88,7 @@ Signed-off-by: Felix Fietkau <nbd@nbd.name>
  void cfg80211_update_last_available(struct wiphy *wiphy,
 --- a/net/wireless/nl80211.c
 +++ b/net/wireless/nl80211.c
-@@ -6825,6 +6825,8 @@ static int nl80211_start_ap(struct sk_bu
+@@ -6837,6 +6837,8 @@ static int nl80211_start_ap(struct sk_bu
  		goto out;
  	}
  

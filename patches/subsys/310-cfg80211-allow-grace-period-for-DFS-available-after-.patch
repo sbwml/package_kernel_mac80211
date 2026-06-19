@@ -148,7 +148,7 @@ Signed-off-by: Felix Fietkau <nbd@nbd.name>
  				c->dfs_state_entered = jiffies;
 --- a/net/wireless/nl80211.c
 +++ b/net/wireless/nl80211.c
-@@ -21102,6 +21102,9 @@ void cfg80211_ch_switch_notify(struct ne
+@@ -21117,6 +21117,9 @@ void cfg80211_ch_switch_notify(struct ne
  		break;
  	case NL80211_IFTYPE_AP:
  	case NL80211_IFTYPE_P2P_GO:
