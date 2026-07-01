@@ -12,7 +12,7 @@ This reverts commit cdad737160571a98cc4933a62c9f2728e965ab27.
 
 --- a/drivers/net/wireless/ath/ath12k/ce.h
 +++ b/drivers/net/wireless/ath/ath12k/ce.h
-@@ -160,7 +160,7 @@ struct ath12k_ce_pipe {
+@@ -165,7 +165,7 @@ struct ath12k_ce_pipe {
  	void (*send_cb)(struct ath12k_ce_pipe *pipe);
  	void (*recv_cb)(struct ath12k_base *ab, struct sk_buff *skb);
  

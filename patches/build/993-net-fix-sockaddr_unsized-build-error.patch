@@ -1,6 +1,6 @@
 --- a/drivers/net/wireless/ath/ath10k/qmi.c
 +++ b/drivers/net/wireless/ath/ath10k/qmi.c
-@@ -986,7 +986,7 @@ static int ath10k_qmi_new_server(struct
+@@ -993,7 +993,7 @@ static int ath10k_qmi_new_server(struct
  
  	ath10k_dbg(ar, ATH10K_DBG_QMI, "wifi fw qmi service found\n");
  

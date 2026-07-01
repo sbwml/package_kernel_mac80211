@@ -120,7 +120,7 @@ This reverts commit b515730ec3d231aa36b6177524532fc7d94f1750.
  
 --- a/drivers/net/wireless/ath/ath11k/dp.c
 +++ b/drivers/net/wireless/ath/ath11k/dp.c
-@@ -344,7 +344,7 @@ void ath11k_dp_stop_shadow_timers(struct
+@@ -342,7 +342,7 @@ void ath11k_dp_stop_shadow_timers(struct
  	if (!ab->hw_params.supports_shadow_regs)
  		return;
  
@@ -129,7 +129,7 @@ This reverts commit b515730ec3d231aa36b6177524532fc7d94f1750.
  		ath11k_dp_shadow_stop_timer(ab, &ab->dp.tx_ring_timer[i]);
  
  	ath11k_dp_shadow_stop_timer(ab, &ab->dp.reo_cmd_timer);
-@@ -359,7 +359,7 @@ static void ath11k_dp_srng_common_cleanu
+@@ -357,7 +357,7 @@ static void ath11k_dp_srng_common_cleanu
  	ath11k_dp_srng_cleanup(ab, &dp->wbm_desc_rel_ring);
  	ath11k_dp_srng_cleanup(ab, &dp->tcl_cmd_ring);
  	ath11k_dp_srng_cleanup(ab, &dp->tcl_status_ring);
@@ -138,7 +138,7 @@ This reverts commit b515730ec3d231aa36b6177524532fc7d94f1750.
  		ath11k_dp_srng_cleanup(ab, &dp->tx_ring[i].tcl_data_ring);
  		ath11k_dp_srng_cleanup(ab, &dp->tx_ring[i].tcl_comp_ring);
  	}
-@@ -400,7 +400,7 @@ static int ath11k_dp_srng_common_setup(s
+@@ -398,7 +398,7 @@ static int ath11k_dp_srng_common_setup(s
  		goto err;
  	}
  
@@ -147,7 +147,7 @@ This reverts commit b515730ec3d231aa36b6177524532fc7d94f1750.
  		tcl_num = ab->hw_params.hal_params->tcl2wbm_rbm_map[i].tcl_ring_num;
  		wbm_num = ab->hw_params.hal_params->tcl2wbm_rbm_map[i].wbm_ring_num;
  
-@@ -782,7 +782,7 @@ int ath11k_dp_service_srng(struct ath11k
+@@ -780,7 +780,7 @@ int ath11k_dp_service_srng(struct ath11k
  	int i, j;
  	int tot_work_done = 0;
  
@@ -156,7 +156,7 @@ This reverts commit b515730ec3d231aa36b6177524532fc7d94f1750.
  		if (BIT(ab->hw_params.hal_params->tcl2wbm_rbm_map[i].wbm_ring_num) &
  		    ab->hw_params.ring_mask->tx[grp_id])
  			ath11k_dp_tx_completion_handler(ab, i);
-@@ -1035,7 +1035,7 @@ void ath11k_dp_free(struct ath11k_base *
+@@ -1033,7 +1033,7 @@ void ath11k_dp_free(struct ath11k_base *
  
  	ath11k_dp_reo_cmd_list_cleanup(ab);
  
@@ -165,7 +165,7 @@ This reverts commit b515730ec3d231aa36b6177524532fc7d94f1750.
  		spin_lock_bh(&dp->tx_ring[i].tx_idr_lock);
  		idr_for_each(&dp->tx_ring[i].txbuf_idr,
  			     ath11k_dp_tx_pending_cleanup, ab);
-@@ -1086,7 +1086,7 @@ int ath11k_dp_alloc(struct ath11k_base *
+@@ -1084,7 +1084,7 @@ int ath11k_dp_alloc(struct ath11k_base *
  
  	size = sizeof(struct hal_wbm_release_ring) * DP_TX_COMP_RING_SIZE;
  

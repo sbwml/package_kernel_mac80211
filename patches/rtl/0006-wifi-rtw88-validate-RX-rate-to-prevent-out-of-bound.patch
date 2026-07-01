@@ -32,9 +32,9 @@ Link: https://patch.msgid.link/20260324011001.5742-1-pkshih@realtek.com
 
 --- a/drivers/net/wireless/realtek/rtw88/rx.c
 +++ b/drivers/net/wireless/realtek/rtw88/rx.c
-@@ -295,6 +295,14 @@ void rtw_rx_query_rx_desc(struct rtw_dev
- 
- 	pkt_stat->tsf_low = le32_get_bits(rx_desc->w5, RTW_RX_DESC_W5_TSFL);
+@@ -303,6 +303,14 @@ void rtw_rx_query_rx_desc(struct rtw_dev
+ 		pkt_stat->bw = RTW_CHANNEL_WIDTH_20;
+ 	}
  
 +	if (unlikely(pkt_stat->rate >= DESC_RATE_MAX)) {
 +		rtw_dbg(rtwdev, RTW_DBG_UNEXP,

@@ -44,7 +44,7 @@ Signed-off-by: Robert Marko <robimarko@gmail.com>
  
 --- a/drivers/net/wireless/ath/ath11k/Kconfig
 +++ b/drivers/net/wireless/ath/ath11k/Kconfig
-@@ -25,9 +25,9 @@ config ATH11K_PCI
+@@ -24,9 +24,9 @@ config ATH11K_PCI
  	tristate "Atheros ath11k PCI support"
  	depends on m
  	depends on ATH11K && PCI
